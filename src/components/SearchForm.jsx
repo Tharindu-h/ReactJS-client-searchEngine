@@ -7,10 +7,27 @@ import 'bootstrap/dist/css/bootstrap.css';
 import DropDown from './DropDown';
 
 class SearchForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state  = {
+      boost: false
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClick  = this.handleClick.bind(this);
+  }
+  
   handleSubmit (event) {
-    console.log(event.target.query.value);
-    console.log(event.target.endpoint.value);
+    let endpoint = event.target.endpoint.value;
+    let query    = event.target.query.value;
+    let limit    = event.target.limit.value;
+    let boost    = this.state.boost;
+    let APIQuery = `/${endpoint}?q=${query}&boost=${boost}&limit=${limit}`;
     event.preventDefault();
+    this.props.callAPI(APIQuery);
+  }
+
+  handleClick (e) {
+    this.setState({boost: !this.state.boost});
   }
 
   render() {
@@ -22,15 +39,15 @@ class SearchForm extends React.Component {
               <label>Search Database</label>
             </Col>
             <Col>
-              <input type="text" id='query' name='query' required></input>
+              <input type="text" id='query' name='query' ></input>
             </Col>
             <Col>
               <label>Boost</label>
-              <input type='checkbox' id='boost' name='boost'></input>
+              <input type='checkbox' id='boost' name='boost' value={this.state.boost} onClick={this.handleClick}></input>
             </Col>
             <Col>
               <label>Number of Search Results</label>
-              <DropDown for="numResults" />
+              <DropDown for="limit" />
             </Col>
             <Col>
               <label>Endpoint</label>

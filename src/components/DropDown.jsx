@@ -25,16 +25,16 @@ class DropDown extends React.Component {
         </Form.Select>
       )
     }
-    else if (this.props.for === "numResults") {
+    else if (this.props.for === "limit") {
       for (let item = 1; item < 51; item++) {
-        if (item == 10) {
+        if (item === 10) {
           menuItems.push(<option value={item} key={item}>{item}</option>);
           continue;
         }
         menuItems.push(<option value={item} key={item}>{item}</option>);
       }
       return (
-        <Form.Select value={this.state.value} onChange={this.handleChange} name="numResults">
+        <Form.Select value={this.state.value} onChange={this.handleChange} name="limit">
           {menuItems}
         </Form.Select>
       )
