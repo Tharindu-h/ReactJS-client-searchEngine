@@ -4,36 +4,43 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.css';
+import DropDown from './DropDown';
 
 class SearchForm extends React.Component {
+  handleSubmit (event) {
+    console.log(event.target.query.value);
+    console.log(event.target.endpoint.value);
+    event.preventDefault();
+  }
+
   render() {
     return(
-      <Container className='mt-4'>
-        <Container>
-          <form>
-            <Row>
-              <Col>
-                <label for="query">Search Database</label>
-              </Col>
-              <Col>
-                <input type="text" id='query' name='query'></input>
-              </Col>
-              <Col>
-                <label for="boost">Boost</label>
-                <input type='checkbox' id='boost' name='boost'></input>
-              </Col>
-              <Col>
-                <label for='limit'>Number of Search Results</label>
-              </Col>
-              <Col>
-                <label>Endpoint</label>
-              </Col>
-              <Col>
-                <Button variant="outline-primary">Search</Button>
-              </Col>
-            </Row>
-          </form>
-        </Container>
+      <Container>
+        <form onSubmit={this.handleSubmit}>
+          <Row>
+            <Col>
+              <label>Search Database</label>
+            </Col>
+            <Col>
+              <input type="text" id='query' name='query' required></input>
+            </Col>
+            <Col>
+              <label>Boost</label>
+              <input type='checkbox' id='boost' name='boost'></input>
+            </Col>
+            <Col>
+              <label>Number of Search Results</label>
+              <DropDown for="numResults" />
+            </Col>
+            <Col>
+              <label>Endpoint</label>
+              <DropDown for="endpoint" />
+            </Col>
+            <Col>
+              <Button variant="outline-primary" type='submit'>Search</Button>
+            </Col>
+          </Row>
+        </form>
       </Container>
     )
   }
