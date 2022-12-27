@@ -4,6 +4,7 @@ import Header from './components/Header.jsx'
 import SearchForm from './components/SearchForm';
 import Container from 'react-bootstrap/Container';
 import Result from './components/Result';
+import Details from './components/Details'
 
 class App extends React.Component{
   constructor(props) {
@@ -12,16 +13,29 @@ class App extends React.Component{
       API : "http://localhost:8000",
       results : [],
     };
-    this.callAPI = this.callAPI.bind(this);
+    this.callAPI    = this.callAPI.bind(this);
+    this.getDetails = this.getDetails.bind(this); 
   }
 
-  getDetails(id) {
-    //TO_DO
+  getDetails(url) {
+    fetch(url, {
+      method  : "GET",
+      headers : {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        let page = <Details data={data}/>;
+        this.setState({
+          results : page
+        });
+      })
+
   }
 
   callAPI (e) {
     let link = `${this.state.API}${e}`;
-    console.log(link.toString());
     fetch(link, {
       method  : 'GET',
       headers : {
@@ -36,7 +50,7 @@ class App extends React.Component{
           if (i === 0) {
             res.push(<h4 className='mt-4 text-start'>Search Results</h4>)
           }
-          let result = <Result data={data[i]} endpoint={endpoint}/>;
+          let result = <Result data={data[i]} endpoint={endpoint} getDetails={this.getDetails} />;
           res.push(result);
         }
         this.setState({
