@@ -1,4 +1,3 @@
-import './App.css';
 import React from 'react';
 import Header from './components/Header.jsx'
 import SearchForm from './components/SearchForm';
@@ -46,6 +45,7 @@ class App extends React.Component{
       .then((data) => {
         let res = [];
         let endpoint = link.split('/')[3].split('?')[0];
+        if (data.length === 0) {   res.push(<h4 className='mt-4 text-start'>No Search Results</h4>)}
         for (let i = 0; i < data.length; i++) {
           if (i === 0) {
             res.push(<h4 className='mt-4 text-start'>Search Results</h4>)
