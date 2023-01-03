@@ -1,6 +1,4 @@
 import React from 'react';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.css';
 import DropDown from './DropDown';
@@ -31,30 +29,26 @@ class SearchForm extends React.Component {
 
   render() {
     return(
-      <form onSubmit={this.handleSubmit}>
-        <Row>
-          <Col>
-            <label>Search Database</label>
-          </Col>
-          <Col>
-            <input type="text" id='query' name='query' ></input>
-          </Col>
-          <Col>
-            <label>Boost</label>
-            <input type='checkbox' id='boost' name='boost' value={this.state.boost} onClick={this.handleClick}></input>
-          </Col>
-          <Col>
-            <label>Number of Search Results</label>
-            <DropDown for="limit" />
-          </Col>
-          <Col>
-            <label>Endpoint</label>
-            <DropDown for="endpoint" />
-          </Col>
-          <Col>
-            <Button variant="outline-primary" type='submit'>Search</Button>
-          </Col>
-        </Row>
+      <form className='row' onSubmit={this.handleSubmit}>
+        <label className='col-sm-6 col-lg-2 col-form-label'>Search Database</label>
+        <div className='col-sm-10 col-lg-2'>
+          <input className='form-control' type="text" id='query' name='query'></input>
+        </div>
+        <label className='col-sm-6 col-lg-1 col-form-label'>Boost</label>
+        <div className='col-sm-10 col-lg-1'>
+          <input className='form-check-input' type='checkbox' id='boost' name='boost' value={this.state.boost} onClick={this.handleClick}></input>
+        </div>
+        <label className='col-sm-6 col-lg-2 col-form-label'>Number of Search Results</label>
+        <div className='col-sm-10 col-lg-1'>
+          <DropDown for="limit" />
+        </div>
+        <label className='col-sm-6 col-lg-1 col-form-label'>Endpoint</label>
+        <div className='col-sm-10 col-lg-1'>
+          <DropDown for="endpoint" />
+        </div>
+        <div className='col-sm-10 col-lg-1'>
+          <Button variant="outline-primary" type='submit'>Search</Button>
+        </div>
       </form>
     )
   }
